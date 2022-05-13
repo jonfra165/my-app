@@ -19,8 +19,9 @@ export default function MovieList() {
       }])
 
       inputRef.current.value = "";
+      ratingRef.current.value = "0";
     } else {
-      alert("Fyll i för fan!")
+      alert("Du måste fylla i en titel och betyg!")
     }     
   }
     
@@ -56,26 +57,27 @@ function sortByRating() {
 
   return (
       <div>
+        <label for="title-field">Titel:</label>
+        <input className={isValid(validTitle)} ref={inputRef} placeholder="Add a new movie here..." onKeyUp={updateValidationTitle}  />
+        
+        <label for="rating-field">Betyg:</label>
+        <select type="text" id="rating-field" className={isValid(validRating)} ref={ratingRef} onChange={updateValidationRate}>
+          <option value="0" >Välj betyg här...</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
 
-          <label for="rating-field">Titel:</label>
-          <input className={isValid(validTitle)} ref={inputRef} placeholder="Add a new movie here..." onKeyUp={updateValidationTitle}  />
-          <label for="rating-field">Betyg:</label>
+        <input type="submit" className="btn btn-success mt-3 mb-4" value="Spara film" onClick={addMovie}/>
 
-                <select type="text" id="rating-field" className={isValid(validRating)} ref={ratingRef} onChange={updateValidationRate}>
-                    <option value="0">Välj betyg här...</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-
-                <input type="submit" className="btn btn-success mt-3" value="Spara film" onClick={addMovie}/>
-                <input className="btn btn-primary mt-3" value="Sortera på titel" onClick={sortByTitle}/>
-                <input className="btn btn-primary mt-3" value="Sortera på betyg" onClick={sortByRating}/>
-          <ul className="list-group">
-              {movies.map(movie => <Movie key={movie.id} item={movie} deleteItem={deleteItem} />)}
-          </ul>
+        <legend>Inlagda filmer</legend>
+        <ul className="list-group d-grid gap-1 mb-2 mt-2">
+            {movies.map(movie => <Movie key={movie.id} item={movie} deleteItem={deleteItem} />)}
+        </ul>
+        <input className="btn btn-primary mt-2 me-2" value="Sortera på titel" onClick={sortByTitle}/>
+        <input className="btn btn-primary mt-2" value="Sortera på betyg" onClick={sortByRating}/>
       </div>
   )
 }
