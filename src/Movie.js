@@ -10,7 +10,7 @@ export default function Movie(props) {
         
     };
     return (
-        <li className="list-group-item px-1 bg-light border">
+        <li className="list-group-item px-2 bg-light border">
             { props.item.title }
             <button className="btn btn-sm btn-danger ms-1 float-end" onClick={() => {props.deleteItem(props.item.id)}}>X</button>
             {getStars(props.item.rating)}
