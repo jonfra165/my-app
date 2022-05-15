@@ -48,18 +48,16 @@ export default function MovieList() {
     
     setMovie(sortedMovies);
   }
-
   const sortByRating = () => {
     const sortedMovies = [...movies].sort((a, b) => {
-        return a.rating < b.rating ? 1 : -1;
+        return a.rating.toLowerCase() > b.rating.toLowerCase() ? 1 : -1;
     });
 
     setMovie(sortedMovies);
   }
 
   return (
-    <div className='container mt-2'>
-        <h1>Min Filmlista</h1>
+      <div>
         <form>
           <fieldset>
             <legend>Lägg till en film</legend>
@@ -76,17 +74,17 @@ export default function MovieList() {
               <option value="5">5</option>
             </select>
 
-            <button type="button" className="btn btn-success mt-3 mb-4" value="Spara film" onClick={addMovie}>Spara film</button>
+            <input type="submit" className="btn btn-success mt-3 mb-4" value="Spara film" onClick={addMovie}/>
             </fieldset>
         </form>
 
-        <h2>Filmer i listan</h2>
-        <ul className="list-group d-grid gap-1">
+        <h2>Inlagda filmer</h2>
+        <ul className="list-group d-grid gap-1 mb-2 mt-2">
             {movies.map(movie => <Movie key={movie.id} item={movie} deleteItem={deleteItem} />)}
         </ul>
-        <button type='button' className="btn btn-primary mt-2 me-2" onClick={sortByTitle}>Sortera på titel här</button>
-        <button type='button' className="btn btn-primary mt-2" onClick={sortByRating}>Sortera på betyg här</button>
-    </div>
+        <input className="btn btn-primary mt-2 me-2" value="Sortera på titel" onClick={sortByTitle}/>
+        <input className="btn btn-primary mt-2" value="Sortera på betyg" onClick={sortByRating}/>
+      </div>
   )
 }
 
