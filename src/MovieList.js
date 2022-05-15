@@ -62,7 +62,7 @@ export default function MovieList() {
           <fieldset>
             <legend>Lägg till en film</legend>
             <label htmlFor="title-field">Titel:</label>
-            <input className={isValid(validTitle)} ref={inputRef} placeholder="Add a new movie here..." onKeyUp={updateValidationTitle}  />
+            <input className={isValid(validTitle)} ref={inputRef} placeholder="Titel här..." onKeyUp={updateValidationTitle}  />
             
             <label htmlFor="rating-field">Betyg:</label>
             <select type="text" id="rating-field" className={isValid(validRating)} ref={ratingRef} onChange={updateValidationRate}>
