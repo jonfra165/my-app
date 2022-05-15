@@ -60,9 +60,7 @@ export default function MovieList() {
   return (
     <div className='container mt-2'>
         <h1>Min Filmlista</h1>
-        <form>
-          <fieldset>
-            <legend>Lägg till en film</legend>
+            <h2>Lägg till en film</h2>
             <label htmlFor="title-field">Titel:</label>
             <input className={isValid(validTitle)} ref={inputRef} placeholder="Titel här..." onKeyUp={updateValidationTitle}  />
             
@@ -77,8 +75,6 @@ export default function MovieList() {
             </select>
 
             <button type="button" className="btn btn-success mt-3 mb-4" value="Spara film" onClick={addMovie}>Spara film</button>
-            </fieldset>
-        </form>
 
         <h2>Filmer i listan</h2>
         <ul className="list-group d-grid gap-1">
