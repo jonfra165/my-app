@@ -1,10 +1,8 @@
-import React from 'react'
-import MovieList from './MovieList'
+import MovieList from './MovieList';
 
 function App() {
   return (
-    <div className="container">
-      <h1>MovieList</h1>
+    <div>
       <MovieList />
     </div>
   );
