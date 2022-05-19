@@ -2,42 +2,53 @@ import React, { useState, useRef } from 'react';
 import Movie from './Movie';
 
 export default function MovieList() {
+  
   const [movies, setMovie] = useState([]);
   const inputRef = useRef();
   const ratingRef = useRef();
   const [validTitle, setValidTitle] = useState(false);
   const [validRating, setValidRating] = useState(false);
 
-
-  function addMovie(event) {   
-    event.preventDefault();
+  
+  function addMovie(event) {     
+    
     if (validTitle && validRating) {
-      const newId = movies.length > 0 ? movies[movies.length - 1].id + 1 : 1;
+      let newId = 0;
+      for (let i = 0; i < movies.length; i++) {
+        if (movies[i].id >= newId) {
+          newId = movies[i].id + 1;
+        }
+      }
+      console.log(newId);
       setMovie([...movies, {
         id: newId,
         title: inputRef.current.value,
         rating: ratingRef.current.value
       }])
-
+  
       inputRef.current.value = "";
       ratingRef.current.value = "0";
+
+      setValidTitle(false);
+      setValidRating(false);
+      
     } else {
       alert("Du måste fylla i en titel och ett betyg!")
     }     
   }
-    
+  
   function deleteItem(id) {
     setMovie(movies.filter((item) => item.id !== id));
   }
-   
+
   function isValid(valid) {
     return 'form-control '+(valid ?'':'is-invalid');
   }
 
-  const updateValidationTitle = () => {
+  function updateValidationTitle() {
     setValidTitle(inputRef.current.value !== "");
   }
-  const updateValidationRate = () => {
+  function updateValidationRate() {
     setValidRating(ratingRef.current.value !== "0");
   }
 
@@ -59,22 +70,28 @@ export default function MovieList() {
 
   return (
     <div className='container mt-2'>
-        <h1>Min Filmlista</h1>
-            <h2>Lägg till en film</h2>
-            <label htmlFor="title-field">Titel:</label>
-            <input className={isValid(validTitle)} ref={inputRef} placeholder="Titel här..." onKeyUp={updateValidationTitle}  />
-            
-            <label htmlFor="rating-field">Betyg:</label>
-            <select type="text" id="rating-field" className={isValid(validRating)} ref={ratingRef} onChange={updateValidationRate}>
-              <option value="0" >Välj betyg här...</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+      <form id="movieForm">
+        <fieldset>
+          <h1>Min Filmlista</h1>
+          <h2>Lägg till en film</h2>
+          <label htmlFor="title-field">Titel:</label>
+          <input className={isValid(validTitle)} ref={inputRef} placeholder="Titel här..." onKeyUp={updateValidationTitle}  />
+          
+          <label htmlFor="rating-field">Betyg:</label>
+          <select type="text" id="rating-field" className={isValid(validRating)} ref={ratingRef} onChange={updateValidationRate}>
+            <option value="0" >Välj betyg här...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </fieldset>
+        <button type="button" className="btn btn-success mt-3 mb-4" value="Spara film" onClick={addMovie}>Spara film</button>
+      </form>
+        
 
-            <button type="button" className="btn btn-success mt-3 mb-4" value="Spara film" onClick={addMovie}>Spara film</button>
+           
 
         <h2>Filmer i listan</h2>
         <ul className="list-group d-grid gap-1">
